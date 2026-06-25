@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 926 133" width="926" height="133" role="img" aria-label="mena climate">
+  <defs>
+    
+    <linearGradient id="dot" x1="24" y1="27.5" x2="102" y2="105.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#43C892"></stop>
+      <stop offset="1" stop-color="#D8B262"></stop>
+    </linearGradient>
+  </defs>
+  <circle cx="63" cy="66.5" r="39" fill="url(#dot)"></circle>
+  <text class="wm" x="144" y="108" fill="#06101C">mena climate</text>
+</svg>

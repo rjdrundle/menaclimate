@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ─── Design tokens ────────────────────────────────────────────────
+ * Color palette comes straight from design_handoff/README.md.
+ * Names match the README so reviewers can grep either side.
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: #06101c;          /* page background, dark text on light */
+  --color-deep: #081a2c;         /* gradient bottom, stat tiles */
+  --color-mist: #eaf1f8;         /* body text */
+  --color-bright: #f4f8fc;       /* headings, wordmark */
+  --color-bright-2: #f3f7fb;     /* wordmark variant */
+  --color-green: #43c892;        /* accent: eyebrows, dots */
+  --color-gold: #d8b262;         /* accent: CTAs, ::selection */
+  --color-gold-soft: #e7c77e;    /* Frontiers gradient highlight */
+
+  /* Hairlines + muted text — rgba can't live in @theme, kept as vars. */
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-hanken-grotesk), system-ui, sans-serif;
+  --font-italic: var(--font-newsreader), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Hairlines & muted text — applied via arbitrary properties. */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-mist);
+  font-family: var(--font-hanken-grotesk), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* ─── Keyframes (from design source) ─────────────────────────────── */
+@keyframes meshA {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8%, 6%) scale(1.18);
+  }
+}
+@keyframes meshB {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.1);
+  }
+  50% {
+    transform: translate(-9%, -7%) scale(1.32);
+  }
+}
+@keyframes meshC {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, -8%) scale(1.22);
+  }
+}
+@keyframes meshD {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate(-7%, 9%) scale(1.28);
+  }
+}
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+@keyframes shimmer {
+  to {
+    background-position: 220% center;
+  }
+}
+
+/* ─── Reveal animations (driven by IntersectionObserver in scripts) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced motion: skip all reveals + parallax */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
