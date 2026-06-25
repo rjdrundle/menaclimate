@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="relative z-[5] overflow-hidden bg-[#06101C] pt-[clamp(70px,10vh,110px)]">
       <div className="px-[clamp(20px,5vw,72px)]">
-        <div className="reveal mx-auto grid max-w-[1180px] gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="reveal mx-auto grid max-w-[1180px] gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
             <div className="mb-5 flex items-center gap-2.5">
               <span
@@ -46,6 +46,14 @@ export default function Footer() {
               ["hello@menaclimate.com", "mailto:hello@menaclimate.com"],
               ["CEBC", "https://cebc-mea.com"],
               ["Kai Kata", "https://kaikata.co"],
+            ]}
+          />
+          <FooterCol
+            title="Legal"
+            items={[
+              ["Privacy", "/privacy"],
+              ["Editorial policy", "/editorial"],
+              ["LinkedIn · CEBC", "https://www.linkedin.com/company/clean-energy-business-council"],
             ]}
           />
         </div>

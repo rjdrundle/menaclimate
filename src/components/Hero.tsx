@@ -14,6 +14,12 @@ import { heroClips } from "@/data/site";
  * - Bottom ghost wordmark uses Space Grotesk 700 at ~16.4vw, white-space:nowrap,
  *   and a vertical text gradient clipped to the letters — must sit inside the hero.
  */
+// Narration script. Kept as a module-level constant so the spoken output,
+// the sr-only transcript, and the Web Speech utterance are guaranteed to
+// stay in sync — no risk of drift between what's spoken and what's indexed.
+const NARRATION =
+  "Across the Gulf, a quiet transformation is underway. From the deserts to the coral reefs, from the turbines on the coastline to the laws being written today — four forums will trace the path from regulation to implementation. This is Climate Frontiers. Come, and help shape the region's net-zero future.";
+
 export default function Hero() {
   const vidsRef = useRef<(HTMLVideoElement | null)[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -103,8 +109,7 @@ export default function Hero() {
       return;
     }
 
-    const text =
-      "Across the Gulf, a quiet transformation is underway. From the deserts to the coral reefs, from the turbines on the coastline to the laws being written today — four forums will trace the path from regulation to implementation. This is Climate Frontiers. Come, and help shape the region's net-zero future.";
+    const text = NARRATION;
 
     const u = new SpeechSynthesisUtterance(text);
     const vs = synth.getVoices();
@@ -139,11 +144,14 @@ export default function Hero() {
       id="top"
       className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center pt-[130px] px-[clamp(20px,5vw,72px)] pb-0"
     >
-      {/* Video montage */}
-      <div className="absolute inset-0 z-0">
+      {/* Video montage — purely decorative. The headline + copy carry the
+          message; the visuals are atmosphere. Marked aria-hidden so screen
+          readers + caption audits skip it. */}
+      <div aria-hidden="true" className="absolute inset-0 z-0">
         {heroClips.map((c, i) => (
           <video
             key={c.src}
+            aria-hidden="true"
             ref={(el) => {
               vidsRef.current[i] = el;
             }}
@@ -192,7 +200,7 @@ export default function Hero() {
       />
 
       {/* Optional pre-rendered voiceover (currently not wired — see toggleVoice). */}
-      <audio ref={audioRef} preload="auto">
+      <audio ref={audioRef} preload="auto" aria-hidden="true">
         <source src="/assets/hero-voiceover.mp3" type="audio/mpeg" />
       </audio>
 
@@ -201,6 +209,7 @@ export default function Hero() {
         type="button"
         onClick={toggleVoice}
         aria-label={voicePlaying ? "Pause narration" : "Hear our vision"}
+        aria-describedby="hero-narration-transcript"
         className="absolute right-[clamp(20px,5vw,72px)] bottom-[clamp(26px,5.5vh,54px)] z-[6] inline-flex items-center gap-3 rounded-full border border-[rgba(234,241,248,0.22)] bg-[rgba(8,18,32,0.42)] backdrop-blur-md px-[18px] py-[10px] text-[14px] font-semibold text-[#EAF1F8] cursor-pointer transition-[border-color,background] duration-300 hover:bg-[rgba(8,18,32,0.62)] hover:border-[rgba(234,241,248,0.4)]"
       >
         <span
@@ -331,6 +340,18 @@ export default function Hero() {
           mena climate
         </span>
       </div>
+    {/* Visually-hidden narration transcript. The hero videos are aria-hidden
+          (atmosphere, not message), but the narration is real content —
+          expose it as plain text so screen readers, AI-search crawlers,
+          and the captions audit can pick it up. Sighted users trigger it
+          via the "Hear our vision" button. */}
+      <p
+        className="sr-only"
+        id="hero-narration-transcript"
+        aria-label="Climate Frontiers narration transcript"
+      >
+        {NARRATION}
+      </p>
     </header>
   );
 }

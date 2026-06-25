@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Reveal />
       <Nav />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <Forums />
         <WhyAttend />

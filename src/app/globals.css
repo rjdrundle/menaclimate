@@ -106,6 +106,32 @@ body {
   transform: translateY(0);
 }
 
+/* ─── Skip link ─────────────────────────────────────────────────
+ * Hidden off-screen until focused (keyboard tab from address bar).
+ * Renders a visible button when keyboard-focused so screen-reader and
+ * keyboard-only users can jump past the nav/hero to the main content.
+ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  padding: 14px 22px;
+  background: #06101c;
+  color: #f4f8fc;
+  font-size: 15px;
+  font-weight: 600;
+  border: 2px solid #43c892;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  outline: 3px solid #43c892;
+  outline-offset: 2px;
+}
+
 /* Reduced motion: skip all reveals + parallax */
 @media (prefers-reduced-motion: reduce) {
   html {

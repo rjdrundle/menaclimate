@@ -145,9 +145,10 @@ export default function Register() {
             className="reveal grid gap-5 lg:grid-cols-2"
             noValidate
           >
-            <Field label="First name" required>
+            <Field id="reg-first" label="First name" required>
               <input
                 type="text"
+                id="reg-first"
                 name="first"
                 required
                 autoComplete="given-name"
@@ -156,9 +157,10 @@ export default function Register() {
                 className="form-input"
               />
             </Field>
-            <Field label="Last name" required>
+            <Field id="reg-last" label="Last name" required>
               <input
                 type="text"
+                id="reg-last"
                 name="last"
                 required
                 autoComplete="family-name"
@@ -167,9 +169,10 @@ export default function Register() {
                 className="form-input"
               />
             </Field>
-            <Field label="Email" required>
+            <Field id="reg-email" label="Email" required>
               <input
                 type="email"
+                id="reg-email"
                 name="email"
                 required
                 autoComplete="email"
@@ -178,9 +181,10 @@ export default function Register() {
                 className="form-input"
               />
             </Field>
-            <Field label="Organisation">
+            <Field id="reg-org" label="Organisation">
               <input
                 type="text"
+                id="reg-org"
                 name="org"
                 autoComplete="organization"
                 value={data.org}
@@ -189,8 +193,9 @@ export default function Register() {
               />
             </Field>
             <div className="lg:col-span-2">
-              <Field label="Which forum?">
+              <Field id="reg-forum" label="Which forum?">
                 <select
+                  id="reg-forum"
                   name="forum"
                   value={data.forum}
                   onChange={update("forum")}
@@ -263,21 +268,26 @@ export default function Register() {
 }
 
 function Field({
+  id,
   label,
   required,
   children,
 }: {
+  id: string;
   label: string;
   required?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <label className="block">
-      <span className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.14em] text-[rgba(234,241,248,0.55)]">
+    <div className="block">
+      <label
+        htmlFor={id}
+        className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.14em] text-[rgba(234,241,248,0.55)]"
+      >
         {label}
         {required && <span className="ml-1 text-[#43C892]">*</span>}
-      </span>
+      </label>
       {children}
-    </label>
+    </div>
   );
 }
