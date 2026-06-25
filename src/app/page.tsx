@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Forums from "@/components/Forums";
 import WhyAttend from "@/components/WhyAttend";
 import About from "@/components/About";
+import Voices from "@/components/Voices";
 import Register from "@/components/Register";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -17,6 +18,7 @@ export default function Home() {
         <Forums />
         <WhyAttend />
         <About />
+        <Voices />
         <Register />
       </main>
       <Footer />
