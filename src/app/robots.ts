@@ -21,7 +21,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/api/",
       },
     ],
-    sitemap: "https://menaclimate.com/sitemap.xml",
-    host: "https://menaclimate.com",
+    sitemap: "https://www.menaclimate.com/sitemap.xml",
+    host: "https://www.menaclimate.com",
   };
 }

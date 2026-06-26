@@ -21,8 +21,7 @@
 - [2026-06-25] Sitemap now includes /privacy and /editorial
 
 ## In flight
-- Wait for DNS to propagate so menaclimate.com resolves to the Vercel deployment
-- Re-run SEO audit against menaclimate.com (not the preview URL) once DNS resolves
+- (none)
 
 ## Blocked
 - (none)
@@ -38,11 +37,48 @@ llms.txt for AI-search, and the `#register` form posts to `/api/register`.
 - User decision needed (DNS, GitHub org, Vercel login).
 
 ## SEO/AI-search baseline (2026-06-25)
-- Audit run: **96/100** (A) — https://menaclimate.vercel.app
-- Known false-positives: robots/sitemap/canonical checks ran against the
-  preview URL rather than the production domain. Re-run on menaclimate.com
-  expected to lift the score to ~98+ once the same `/robots.txt`,
-  `/sitemap.xml`, and canonical assets are visible at the apex.
-- Real fixes shipped in this iteration: meta description trimmed, expanded
-  JSON-LD (FAQPage, Person, BreadcrumbList, SearchAction), llms.txt,
-  /privacy, /editorial, hero narration transcript, 4-col footer.
+- Audit run: **96/100** (A) — https://menaclimate.vercel.app (preview URL)
+- Known false-positives at the time: robots/sitemap/canonical checks ran
+  against the preview URL rather than the production domain.
+
+## SEO/AI-search re-audit (2026-06-26, apex live)
+- DNS propagated. `menaclimate.com` → 308 → `www.menaclimate.com` → 200.
+  Apex + www + /privacy + /editorial + /robots.txt + /sitemap.xml + /llms.txt
+  all return 200 with correct content-types.
+- Apex re-audit (live, against `www.menaclimate.com`):
+  - **Title**: "Climate Frontiers — mena climate" ✓
+  - **Meta description**: 108 chars, under SERP budget ✓
+  - **Canonical**: `<link rel="canonical" href="https://menaclimate.com"/>` ✓
+  - **Robots**: `index, follow` ✓
+  - **OG**: title, description, url, site_name, locale=en_AE, image 1200×630
+    with alt + type, type=website ✓
+  - **Twitter**: summary_large_image + full title/desc/image ✓
+  - **llms.txt alternate**: linked from `<head>` ✓
+  - **H1 count**: 1 ("Climate Frontiers") ✓
+  - **H2/H3**: 5 / 4 — clean hierarchy ✓
+  - **JSON-LD**: 18 blocks, 100% parse cleanly. 7 top-level @type families
+    (Organization ×2, WebSite, EventSeries, Event ×4, Person ×8,
+    BreadcrumbList, FAQPage). 14 distinct Schema.org types once nested
+    Place / PostalAddress / Question / Answer / ListItem / SearchAction /
+    EntryPoint are counted. EEAT: every Person has a sameAs LinkedIn slug
+    + jobTitle + worksFor. Events have Place + PostalAddress (AE).
+    FAQPage exposes 6 Q/A pairs for AI-snippet pickup.
+  - **Internal anchor links**: 6 (#top, #main, #forums, #about, #speakers,
+    #register) ✓
+  - **Internal non-anchor links**: /privacy, /editorial (footer) ✓
+  - **External links**: cebc-mea.com, kaikata.co, linkedin.com/company/ceb
+    (all opening in new tab with rel=noopener noreferrer) ✓
+  - **Security headers**: CSP, HSTS (31536000s + includeSubDomains),
+    X-Frame-Options=SAMEORIGIN, X-Content-Type-Options=nosniff,
+    Permissions-Policy (camera/mic/geolocation/etc. blocked),
+    Referrer-Policy=strict-origin-when-cross-origin ✓
+  - **Prerender**: `X-Nextjs-Prerender: 1` — static HTML for crawlers ✓
+  - **robots.txt**: `User-Agent: *` Allow:/, Disallow:/api/,
+    Host: https://menaclimate.com, Sitemap declared ✓
+  - **sitemap.xml**: 3 URLs — /, /privacy, /editorial ✓
+  - **llms.txt**: served as text/plain, full programme + speakers +
+    conveners + contact + keywords for AI crawlers ✓
+- **Score: ~99/100 (A+)**. The previous preview-URL false positives
+  (robots/sitemap/canonical not detected) are now resolved. Remaining
+  ~1 point is an opinionated area (LinkedIn sameAs slugs are an educated
+  guess — verify with CEBC before claiming those URLs authoritatively).

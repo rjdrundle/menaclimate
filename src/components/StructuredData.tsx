@@ -20,6 +20,7 @@ import { forums, speakers } from "@/data/site";
 
 // ISO date helpers — keep these stable so crawlers see the same string on
 // every render and don't mark the page as "fluctuating".
+const SITE_URL = "https://www.menaclimate.com";
 const SITE_LAUNCH = "2026-01-01";
 const SITE_MODIFIED = "2026-06-25";
 const SERIES_START = "2026-02-01";
@@ -31,8 +32,8 @@ export default function StructuredData() {
     "@type": "Organization",
     name: "Clean Energy Business Council",
     alternateName: "CEBC",
-    url: "https://menaclimate.com",
-    logo: "https://menaclimate.com/logo/mena-climate-mark.svg",
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo/mena-climate-mark.svg`,
     description:
       "MENA's leading non-profit voice for clean energy policy and private-sector action.",
     address: {
@@ -63,16 +64,16 @@ export default function StructuredData() {
     "@type": "WebSite",
     name: "mena climate",
     alternateName: "Climate Frontiers",
-    url: "https://menaclimate.com",
+    url: SITE_URL,
     inLanguage: "en",
     datePublished: SITE_LAUNCH,
     dateModified: SITE_MODIFIED,
-    publisher: { "@id": "https://menaclimate.com/#org" },
+    publisher: { "@id": `${SITE_URL}/#org` },
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://menaclimate.com/?q={search_term_string}",
+        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -81,7 +82,7 @@ export default function StructuredData() {
   const series = {
     "@context": "https://schema.org",
     "@type": "EventSeries",
-    "@id": "https://menaclimate.com/#series",
+    "@id": `${SITE_URL}/#series`,
     name: "Climate Frontiers",
     alternateName: "mena climate — Climate Frontiers",
     description:
@@ -128,7 +129,7 @@ export default function StructuredData() {
       { "@type": "Organization", name: "Clean Energy Business Council" },
       { "@type": "Organization", name: "Kai Kata" },
     ],
-    isPartOf: { "@id": "https://menaclimate.com/#series" },
+    isPartOf: { "@id": `${SITE_URL}/#series` },
     inLanguage: "en",
     position: i + 1,
   }));
@@ -169,13 +170,13 @@ export default function StructuredData() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://menaclimate.com",
+        item: SITE_URL,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Climate Frontiers",
-        item: "https://menaclimate.com/#forums",
+        item: `${SITE_URL}/#forums`,
       },
     ],
   };

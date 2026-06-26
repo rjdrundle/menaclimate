@@ -10,19 +10,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     {
-      url: "https://menaclimate.com",
+      url: "https://www.menaclimate.com",
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: "https://menaclimate.com/privacy",
+      url: "https://www.menaclimate.com/privacy",
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: "https://menaclimate.com/editorial",
+      url: "https://www.menaclimate.com/editorial",
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,

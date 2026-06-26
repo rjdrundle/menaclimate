@@ -28,7 +28,7 @@ const newsreader = Newsreader({
 
 // Single source of truth for the canonical host. Every absolute URL in
 // metadata, sitemap, robots, and structured data flows from this string.
-const SITE_URL = "https://menaclimate.com";
+const SITE_URL = "https://www.menaclimate.com";
 
 // Meta description — 120 chars / ~880px so the full message fits SERP and
 // AI-search snippets without truncation. Lead with the differentiator
